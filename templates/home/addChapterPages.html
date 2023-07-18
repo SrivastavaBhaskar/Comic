@@ -1,12 +1,12 @@
 {% extends 'common/base.html' %}
-
+{% load crispy_forms_tags %} 
 {% block content %}
 
 <form enctype="multipart/form-data" method="POST">
     {% csrf_token %}
     {{ formset.management_form }}
     {% for form in formset %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     {% endfor %}
     <input class="btn btn-info" type="submit" value="Add Pages">
 </form>

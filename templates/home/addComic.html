@@ -1,10 +1,10 @@
 {% extends 'common/base.html' %}
-
+{% load crispy_forms_tags %} 
 {% block content %}
 
 <form enctype="multipart/form-data" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     <input class="btn btn-info" type="submit" value="Add Comic">
 </form>
 
