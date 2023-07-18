@@ -1,0 +1,11 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-info" type="submit" value="Add Comic">
+</form>
+
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>{{ comic.name }}</h1>
+
+<div class="row">
+    <img src="{{ comic.image.url }}" class="col-3 comic-display-pic">
+    <div class="col-9">
+        <div class="row">
+            <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat rerum, veritatis, veniam sint et, possimus cupiditate odit cum consequatur distinctio repudiandae atque ad totam alias excepturi. Vel pariatur eaque laboriosam?
+                Rem reprehenderit dicta placeat sequi expedita assumenda eaque debitis. Ab, aliquid! Officia sed, dolore facere explicabo eum vel vitae ut soluta quae alias incidunt, vero voluptas eos enim veritatis ipsam.
+                Quos, illo minima exercitationem temporibus repellat deserunt sequi et animi velit optio quam assumenda atque, aut rem alias, numquam eum modi. Nihil eveniet, minus numquam sed totam inventore non ducimus.
+                Enim rem optio consequuntur? Ratione sit, quasi deserunt enim, esse quos totam doloremque corrupti necessitatibus nostrum nesciunt deleniti quae labore obcaecati? Mollitia id corporis, doloremque in ipsum quae magni totam!
+            </div>
+            <div>
+                <h1>Rating {{ comic.rating|floatformat:2 }}</h1>
+                <h2>Total Reviews {{ comic.total_reviews }}</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Rate!">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<h2>Chapters</h2>
+{% if chapters %}
+<div class="row">
+    {% for chapter in chapters %}
+    <div class="col-1"></div>
+    <div class="btn btn-outline-light col-4 mt-1"><a href="{% url 'read-chapter' comic.id chapter.chapter_number %}">Chapter: {{ chapter.chapter_number }}</a></div>
+    <div class="col-1"></div>
+    {% endfor %}
+</div>
+{% else %}
+<h2>No Chapters Yet!!</h2>
+{% endif %}
+<a class="btn btn-info mt-1" href="{% url 'add-comic-chapter' comic.id %}">Add one?</a>
+{% endblock content %}

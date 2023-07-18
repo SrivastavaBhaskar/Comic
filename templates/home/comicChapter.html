@@ -1,0 +1,28 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>{{ comic.name }}</h1>
+
+<h2>Chapter: {{ chapter.chapter_number }}</h2>
+{% if chapter %}
+<div class="row">
+    {% if not first_chapter %}
+    <div class="col-6"><a href="{% url 'read-chapter' comic.id previous_chapter %}">Previous</a></div>
+    {% endif %}
+    {% if not last_chapter %}
+    <div class="col-6"><a href="{% url 'read-chapter' comic.id next_chapter %}">Next</a></div>
+    {% endif %}
+</div>
+{% for page in pages %}
+<img src="{{ page.image.url }}" class="container">
+{% endfor %}
+{% else %}
+<h2>No chapter Yet!!</h2>
+{% endif %}
+<form action="{% url 'add-pages' comic.id chapter.id %}" method="get">
+    Add Pages <input type="text" name="number_of_pages" placeholder="No. of pages">
+    <input class="btn btn-outline-light" type="submit" value="Update Chapter">
+</form>
+{% endblock content %}

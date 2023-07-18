@@ -1,0 +1,13 @@
+body {
+    background: #333333;
+    color: #cccccc;
+};
+
+nav#custom-navigation {
+    background: #000000;
+};
+
+.comic-display-pic {
+    height: auto;
+    width: 30%;
+};

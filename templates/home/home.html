@@ -1,0 +1,15 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
+{% if comics.object_list %}
+<ul>
+    {% for comic in comics.object_list %}
+    <li><a href="{% url 'view-comic' comic.id %}">{{ comic.name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<h1>No comics yet.</h1>
+{% endif %}
+<a class="btn btn-info" href="{% url 'add-comic' %}">Add one?</a>
+{% endblock content %}
