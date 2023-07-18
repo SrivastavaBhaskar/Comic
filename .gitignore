@@ -1,3 +1,5 @@
 venv/
 uploads/
 *.sqlite3
+*.pyc
+__pycache__/*

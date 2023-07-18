@@ -1,3 +1,4 @@
+from django.forms import formset_factory
 from django.shortcuts import redirect, render
 from django.core.paginator import Paginator
 from home.models import Comic
@@ -66,34 +67,33 @@ def add_pages_to_chapter_view(request, comicid=None, chapterid=None):
     number_of_pages = int(request.GET.get("number_of_pages")) or None
     comic = Comic.objects.get(id=comicid)
     chapter = comic.chapters.get(id=chapterid)
-    if not number_of_pages:
-        return redirect(read_comic_chapter_view(comicid, chapter.chapter_number))
-    forms = [AddPageForm(request.POST or None, request.FILES or None) for _ in range(number_of_pages)]
-    for form in forms:
-        if form.is_valid():
+    AddPageFormset = formset_factory(AddPageForm, extra=number_of_pages)
+    formset = AddPageFormset(request.POST or None, request.FILES or None)
+    if formset.is_valid():
+        for form in formset:
             page = form.save(commit=False)
             page.chapter = chapter
             page.page_number = chapter.pages.all().count() + 1
             page.save()
-    context['forms'] = forms
+    context['formset'] = formset
     return render(request, 'home/addChapterPages.html', context=context)
 
-def read_comic_chapter_view(request, comicid=None, chapternumber=None):
+def read_comic_chapter_view(request, comicid=None, chapterid=None):
     context = {}
-    if not comicid or not chapternumber:
+    if not comicid or not chapterid:
         return redirect(home_view)
     else:
         comic = Comic.objects.get(id=comicid)
-        chapter = comic.chapters.get(chapter_number=chapternumber)
+        chapter = comic.chapters.get(id=chapterid)
         pages = chapter.pages.all()
         if chapter == comic.chapters.last():
             context['last_chapter'] = True
         else:
-            context['next_chapter'] = chapter.chapter_number+1
+            context['next_chapter'] = comic.chapters.get(chapter_number=chapter.chapter_number+1).id
         if chapter == comic.chapters.first():
             context['first_chapter'] = True
         else:
-            context['previous_chapter'] = chapter.chapter_number-1
+            context['previous_chapter'] = comic.chapters.get(chapter_number=chapter.chapter_number-1).id
         context['comic'] = comic
         context['chapter'] = chapter
         context['pages'] = pages

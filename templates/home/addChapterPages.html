@@ -4,7 +4,8 @@
 
 <form enctype="multipart/form-data" method="POST">
     {% csrf_token %}
-    {% for form in forms %}
+    {{ formset.management_form }}
+    {% for form in formset %}
     {{ form.as_p }}
     {% endfor %}
     <input class="btn btn-info" type="submit" value="Add Pages">

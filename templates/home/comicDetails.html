@@ -32,7 +32,7 @@
 <div class="row">
     {% for chapter in chapters %}
     <div class="col-1"></div>
-    <div class="btn btn-outline-light col-4 mt-1"><a href="{% url 'read-chapter' comic.id chapter.chapter_number %}">Chapter: {{ chapter.chapter_number }}</a></div>
+    <div class="btn btn-outline-light col-4 mt-1"><a href="{% url 'read-chapter' comic.id chapter.id %}">Chapter: {{ chapter.chapter_number }}</a></div>
     <div class="col-1"></div>
     {% endfor %}
 </div>

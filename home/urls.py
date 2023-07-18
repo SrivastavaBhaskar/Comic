@@ -19,7 +19,7 @@ urlpatterns = [
     path('comicDetails/<int:id>', comic_details_view, name='view-comic'),
     path('comicDetails/<int:id>/addChapter', add_comic_chapter_view, name='add-comic-chapter'),
     path('comicDetails/<int:comicid>/chapter/<int:chapterid>/addPages', add_pages_to_chapter_view, name='add-pages'),
-    path('comicDetails/<int:comicid>/readChapter/<int:chapternumber>', read_comic_chapter_view, name='read-chapter'),
+    path('comicDetails/<int:comicid>/readChapter/<int:chapterid>', read_comic_chapter_view, name='read-chapter'),
 ]
 
 
