@@ -48,15 +48,8 @@ def add_comic_chapter_view(request, id=None):
     chapterform = AddChapterForm(request.POST or None)
     pageform = AddPageForm(request.POST or None, request.FILES or None)
     if chapterform.is_valid() and pageform.is_valid():
-        chapter = chapterform.save(commit=False)
-        comic = Comic.objects.get(id=id)
-        chapter.comic = comic
-        chapter.chapter_number = comic.chapters.all().count() + 1
-        chapter.save()
-        page = pageform.save(commit=False)
-        page.chapter = chapter
-        page.page_number = 0
-        page.save()
+        chapter = chapterform.save(comic_id=id)
+        pageform.save(chapter_id=chapter.id)
         return redirect(home_view)
     context['chapterform'] = chapterform
     context['pageform'] = pageform
@@ -65,16 +58,11 @@ def add_comic_chapter_view(request, id=None):
 def add_pages_to_chapter_view(request, comicid=None, chapterid=None):
     context = {}
     number_of_pages = int(request.GET.get("number_of_pages")) or None
-    comic = Comic.objects.get(id=comicid)
-    chapter = comic.chapters.get(id=chapterid)
     AddPageFormset = formset_factory(AddPageForm, extra=number_of_pages)
     formset = AddPageFormset(request.POST or None, request.FILES or None)
     if formset.is_valid():
         for form in formset:
-            page = form.save(commit=False)
-            page.chapter = chapter
-            page.page_number = chapter.pages.all().count() + 1
-            page.save()
+            form.save(chapterid)
     context['formset'] = formset
     return render(request, 'home/addChapterPages.html', context=context)
 

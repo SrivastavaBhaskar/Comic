@@ -1,3 +1,4 @@
+from typing import Iterable, Optional
 from django.db import models
 from django.utils.text import slugify
 
@@ -27,7 +28,7 @@ class Chapter(models.Model):
     def __str__(self):
         return self.name
 
-def chapter_directory_path(instance, page):
+def page_directory_path(instance, page):
     chapter = Chapter.objects.get(id=instance.chapter.id)
     comic = chapter.comic
     new_file_name = f'{instance.page_number}'
@@ -37,8 +38,8 @@ def chapter_directory_path(instance, page):
 
 class Page(models.Model):
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='pages')
-    image = models.ImageField(upload_to=chapter_directory_path)
-    page_number = models.IntegerField()
+    image = models.ImageField(upload_to=page_directory_path)
+    page_number = models.IntegerField(default=0)
     date_added = models.DateField(auto_now_add=True)
 
     def __str__(self):

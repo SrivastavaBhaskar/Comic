@@ -6,7 +6,9 @@
 <h1>{{ comic.name }}</h1>
 
 <div class="row">
+    {% if comic.image %}
     <img src="{{ comic.image.url }}" class="col-3 comic-display-pic">
+    {% endif %}
     <div class="col-9">
         <div class="row">
             <div>

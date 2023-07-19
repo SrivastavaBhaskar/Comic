@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
             name='Page',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(upload_to=home.models.chapter_directory_path)),
+                ('image', models.ImageField(upload_to=home.models.page_directory_path)),
                 ('chapter', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='pages', to='home.chapter')),
             ],
         ),
