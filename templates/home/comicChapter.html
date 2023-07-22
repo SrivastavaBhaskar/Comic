@@ -21,8 +21,10 @@
 {% else %}
 <h2>No chapter Yet!!</h2>
 {% endif %}
+{% if user.is_authenticated %}
 <form action="{% url 'add-pages' comic.id chapter.id %}" method="get">
     Add Pages <input type="text" name="number_of_pages" placeholder="No. of pages">
     <input class="btn btn-outline-light" type="submit" value="Update Chapter">
 </form>
+{% endif %}
 {% endblock content %}

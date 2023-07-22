@@ -41,5 +41,7 @@
 {% else %}
 <h2>No Chapters Yet!!</h2>
 {% endif %}
+{% if user.is_authenticated %}
 <a class="btn btn-info mt-1" href="{% url 'add-comic-chapter' comic.id %}">Add one?</a>
+{% endif %}
 {% endblock content %}

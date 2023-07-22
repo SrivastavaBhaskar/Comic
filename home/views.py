@@ -1,9 +1,11 @@
 from django.forms import formset_factory
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from home.models import Comic
 from home.forms import AddComicForm, RatingForm, AddChapterForm, AddPageForm
 # Create your views here.
+
 def home_view(request):
     context = {}
     comics = Comic.objects.all()
@@ -12,6 +14,7 @@ def home_view(request):
     context['comics'] = comics
     return render(request, 'home/home.html', context=context)
 
+@login_required
 def add_comic_view(request):
     context = {}
     form = AddComicForm(request.POST or None, request.FILES or None)
@@ -41,6 +44,7 @@ def comic_details_view(request, id=None):
         context['form'] = form
     return render(request, 'home/comicDetails.html', context=context)
 
+@login_required
 def add_comic_chapter_view(request, id=None):
     context = {}
     if not id:
@@ -55,6 +59,7 @@ def add_comic_chapter_view(request, id=None):
     context['pageform'] = pageform
     return render(request, 'home/addComicChapter.html', context=context)
 
+@login_required
 def add_pages_to_chapter_view(request, comicid=None, chapterid=None):
     context = {}
     number_of_pages = int(request.GET.get("number_of_pages")) or None
