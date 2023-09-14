@@ -2,22 +2,22 @@
 
 <nav id="custom-navigation" class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <a href="{% url 'home' %}" class="navbar-brand text-white">Comics</a>
+        <a href="{% url 'home' %}" class="navbar-brand custom-nav-item">Comics</a>
     </div>
-    <ul class="container-fluid navbar-nav">
+    <ul class="navbar-nav col-2 col-sm-3 col-md-3 container-fluid">
         <li class="nav-item">
-            <a href="{% url 'home' %}" class="nav-link text-white">Home</a>
+            <a href="{% url 'home' %}" class="nav-link custom-nav-item">Home</a>
         </li>
         <li class="nav-item">
-            <a href="{% url 'home' %}" class="nav-link text-white">All Comics</a>
+            <a href="{% url 'home' %}" class="nav-link custom-nav-item">All Comics</a>
         </li>
         {% if request.user.is_authenticated %}
         <li class="nav-item">
-            <a href="{% url 'logout' %}" class="nav-link text-white">Logout</a>
+            <a href="{% url 'logout' %}" class="nav-link custom-nav-item">Logout</a>
         </li>
         {% else %}
         <li class="nav-item">
-            <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
+            <a href="{% url 'login' %}" class="nav-link custom-nav-item">Login</a>
         </li>
         {% endif %}
     </ul>

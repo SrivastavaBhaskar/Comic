@@ -1,13 +1,18 @@
 body {
-    background: #333333;
     color: #cccccc;
-};
-
-nav#custom-navigation {
-    background: #000000;
-};
+    background: #333333;
+}
 
 .comic-display-pic {
     height: auto;
     width: 30%;
-};
+}
+
+nav {
+    color: #cccccc;
+    background-color: #000000;
+}
+
+a.custom-nav-item{
+    color: #cccccc;
+}
